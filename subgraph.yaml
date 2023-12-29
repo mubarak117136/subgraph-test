@@ -1,0 +1,37 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Token
+    network: chapel
+    source:
+      address: "0xc7B45cfe7499A7aD93b1D64Bf1980217bFDE4671"
+      abi: Token
+      startBlock: 36379670
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - MarketItemCreated
+      abis:
+        - name: Token
+          file: ./abis/Token.json
+      eventHandlers:
+        - event: MarketItemCreated(indexed uint256,indexed address,address,address,uint256,bool,uint256,uint8,address,uint256,string)
+          handler: handleMarketItemCreated
+      file: ./src/token.ts
+templates:
+  - name: TokenMetadata
+    kind: file/ipfs
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/token.ts
+      handler: handleMetadata
+      entities:
+        - TokenMetadata
+      abis:
+        - name: Token
+          file: ./abis/Token.json

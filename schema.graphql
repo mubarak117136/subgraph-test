@@ -1,0 +1,17 @@
+type Token @entity {
+  id: ID!
+  tokenID: BigInt!
+  tokenURI: String!
+  ipfsURI: TokenMetadata
+  type: String!
+  creator: String!
+  owner: String!
+  updatedTime: BigInt!
+}
+
+type TokenMetadata @entity {
+  id: ID!
+  image: String!
+  name: String!
+  description: String!
+}
